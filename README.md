@@ -2,6 +2,10 @@
 ### Download the zip file of branch 'initial'
 https://github.com/uopsdod/claude_code_treasure_game/tree/initial
 
+![Alt text](images/treasure_game_image_prompt.png)
+![Alt text](images/treasure_game_add_result.png)
+
+
 ### initialize the context
 /clear
 /init: generate the CLAUDE.md to understand how this project works 
@@ -33,7 +37,11 @@ type '#' first
 
 ### use screenshot to develop intuitively 
 > screenshot and mark the area you want the change to be. 
-> [!image] show the results to be either: win, tie, loss in the circled place according to the final score 
+> [!image] show the results to be either: win, tie, loss in the circled place according to the final score
+
+**Feature implemented:** Win/Tie/Loss result badge next to the score
+- Prompt used: `[screenshot] show the results to be either: win, tie, loss in the circled place according to the final score`
+- A badge appears to the right of the Current Score box when the game ends. Score > 0 → Win (green), score = 0 → Tie (amber), score < 0 → Loss (red). Implemented in `src/App.tsx` alongside the score display.
 
 ### Challenge: change the hover mouse point icon
 use the src/assets/key.png icon when the mouse hovers over the closed treasure box
