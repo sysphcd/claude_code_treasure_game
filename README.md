@@ -46,6 +46,12 @@ type '#' first
 ### Challenge: change the hover mouse point icon
 use the src/assets/key.png icon when the mouse hovers over the closed treasure box
 
+**Feature implemented:** key cursor on closed chest hover
+- Prompt used: `Change the cursor to @src/assets/key.png when cursor hover the chest. Change back to normal cursor when cursor is out of chest. do not do anything else.`
+- Imported `key.png` and applied `cursor: url(keyIcon), pointer` inline style on each chest `motion.div`. Reverts to `cursor: default` when the chest is already open.
+
+![key cursor feature](images/treasure_game_key_cursor.png)
+
 ### manage context 
 /context 
 54k/200k tokens (27%)
