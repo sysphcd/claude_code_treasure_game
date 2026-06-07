@@ -23,7 +23,11 @@ type '#' first
 "Always add comments on the top of every new function in one line to summarize the usage and Must document the inputs and output parameters" 
 > 2. Project memory
 
-> use @src/audios/chest_open_with_evil_laugh.mp3 in the @src/App.tsx to play the sound effect of the chest with skeleton inside being opened  
+> use @src/audios/chest_open_with_evil_laugh.mp3 in the @src/App.tsx when skeleton in the chest being opened. do not do anything else.
+
+**Feature implemented:** skeleton chest evil laugh sound effect
+- Prompt used: `use @src/audios/chest_open_with_evil_laugh.mp3 in the @src/App.tsx when skeleton in the chest being opened. do not do anything else.`
+- `src/audios/chest_open_with_evil_laugh.mp3` plays instead of the regular sound when a skeleton chest is opened. Logic in `openBox()` in `src/App.tsx`: `new Audio(box.hasTreasure ? chestOpenSound : evilLaughSound).play()`
 
 > check the comments of existing changes
 
