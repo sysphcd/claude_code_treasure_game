@@ -12,6 +12,10 @@ npm run dev'
 ### specify file to the current context 
 > use @src/audios/chest_open.mp3 in the @src/App.tsx to play the sound effect of the chest being opened. do not do anything else.
 
+**Feature implemented:** chest open sound effect
+- Prompt used: `use @src/audios/chest_open.mp3 in the @src/App.tsx to play the sound effect of the chest being opened. do not do anything else.`
+- `src/audios/chest_open.mp3` plays via `new Audio(chestOpenSound).play()` inside `openBox()` in `src/App.tsx` whenever any chest is clicked open.
+
 ### add more to the context
 > check the comments of existing changes
 
