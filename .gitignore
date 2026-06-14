@@ -141,3 +141,8 @@ vite.config.ts.timestamp-*
 build/
 */.DS_Store
 .vercel/
+
+# claude folder
+.claude/
+
+db.ts

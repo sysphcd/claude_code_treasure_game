@@ -14,20 +14,51 @@ No test runner or linter is configured.
 
 ## Architecture
 
-Single-page React 18 app built with Vite + TypeScript. All game logic lives in one file: `src/App.tsx`. There is no routing, no state management library, and no backend.
+Single-page React 18 app built with Vite + TypeScript. No routing, no state management library, no backend.
 
-**Game mechanics** (`src/App.tsx`):
-- 3 treasure boxes, one randomly assigned `hasTreasure: true` on each `initializeGame()` call
-- Opening the treasure box: +$100; opening a skeleton box: -$50
-- Game ends when the treasure box is found, or all boxes are opened
-- Animations via `motion/react` (the `motion` package); sound played via `new Audio(url).play()`
+### App flow (`src/App.tsx`)
 
-**UI components** (`src/components/ui/`): shadcn/ui primitives — Radix UI + Tailwind. These are vendored source files, not a build output; edit them directly if needed.
+Three modes controlled by `AppMode` state (`'loading' | 'auth' | 'game'`):
 
-**Static assets**:
+1. **loading** — `initDb()` initializes SQLite WASM; shows a spinner
+2. **auth** — renders `<AuthScreen>` (sign in / sign up / guest)
+3. **game** — renders the chest-clicking game
+
+`currentUser: User | null` distinguishes signed-in users from guests throughout the game mode. A `useEffect` on `gameEnded` saves the score to SQLite and refreshes `scoreHistory` for signed-in users.
+
+### Auth & database (`src/db.ts`, `src/AuthScreen.tsx`)
+
+- **`src/db.ts`**: all SQLite logic. Uses `sql.js` (SQLite compiled to WASM). The database binary is serialized to `localStorage` (`btoa`/`atob`) after every write so it survives page reloads. Exports: `initDb`, `signUp`, `signIn`, `saveScore`, `getScores`. Password hashing uses `crypto.subtle.digest('SHA-256', ...)` — no external crypto library.
+- **`src/AuthScreen.tsx`**: sign in / sign up UI. Contains two separate subcomponents — `SignInForm` and `SignUpForm` — each with its own `useForm` instance. This is intentional: Radix UI `TabsContent` keeps both panels in the DOM simultaneously, so a shared `useForm` would have conflicting field registrations.
+
+**SQLite schema:**
+```sql
+users  (id, username UNIQUE, password_hash)
+scores (id, user_id, score, result TEXT, played_at INTEGER)
+```
+
+### Game mechanics (`src/App.tsx`)
+
+- 3 treasure boxes, one randomly assigned `hasTreasure: true` per `initializeGame()` call
+- Treasure box: +$100; skeleton box: -$50
+- Game ends when treasure found or all boxes opened
+- Animations via `motion/react`; sound via `new Audio(url).play()`
+- Custom key cursor (`src/assets/key.png`) on closed-chest hover via inline `style.cursor`
+
+### UI components (`src/components/ui/`)
+
+shadcn/ui primitives — Radix UI + Tailwind, vendored as source files. Edit directly if needed.
+
+**Known gotcha**: `Input` (`src/components/ui/input.tsx`) uses `React.forwardRef` — required for `react-hook-form` to read field values. Do not remove it.
+
+### Static assets
+
 - Images: `src/assets/` (treasure_closed.png, treasure_opened.png, treasure_opened_skeleton.png, key.png)
 - Audio: `src/audios/` (chest_open.mp3, chest_open_with_evil_laugh.mp3)
 
-**Path alias**: `@` resolves to `src/` (configured in `vite.config.ts`).
+### Vite config notes
 
-**Build output**: `./build/` (not `dist/`).
+- Path alias: `@` → `src/`
+- Build output: `./build/` (not `dist/`)
+- WASM loading: `sql.js` WASM is imported via `import sqlWasm from 'sql.js/dist/sql-wasm.wasm?url'` and passed to `initSqlJs({ locateFile: () => sqlWasm })` — this makes Vite copy the file into the build with a content hash
+- All versioned deps have aliased entries in `vite.config.ts`; new deps don't need aliases unless they use versioned import paths

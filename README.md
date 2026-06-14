@@ -88,6 +88,13 @@ revert back to previous git commit
 
 > "Ultrathink to use SQLite to build a simple sign up and sign in flow and store the game score for each signed in user. In addition, allow to play the game as guest mode without storing any data."
 
+**Feature implemented:** SQLite sign up / sign in + per-user score history + guest mode
+- Prompt used: `ultrathink use SQLite to build a simple sign up and sign in flow and store the game score for each signed in user. In addition, allow to play the game as guest mode without storing any data.`
+- `src/db.ts` — SQLite via `sql.js` (WASM). DB binary serialized to `localStorage` for persistence across reloads. Tables: `users (id, username UNIQUE, password_hash)`, `scores (id, user_id, score, result, played_at)`. Password hashing via `crypto.subtle.digest('SHA-256')`.
+- `src/AuthScreen.tsx` — Sign In / Sign Up tabs + "Play as Guest" button. Each tab has its own `useForm` instance (required because Radix UI keeps both `TabsContent` panels in the DOM simultaneously).
+- `src/App.tsx` — `AppMode` state machine (`loading → auth → game`). Signed-in users see score history after each game; guests see no history. Both guests and signed-in users see a top-bar with identity + Sign Out / Sign In button.
+- `src/components/ui/input.tsx` — fixed to use `React.forwardRef` (required for `react-hook-form` to read field values).
+
 > Ctrl + T: See the To-Do List 
 
 ### custom command - Vercel deployment
