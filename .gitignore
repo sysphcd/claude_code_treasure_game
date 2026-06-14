@@ -146,3 +146,4 @@ build/
 .claude/
 
 db.ts
+.vercel

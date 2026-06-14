@@ -98,9 +98,15 @@ revert back to previous git commit
 > Ctrl + T: See the To-Do List 
 
 ### custom command - Vercel deployment
-- create folder: .claude/commands
-- create file: deploy_vercel.md
-- after creation, re-open a new claude code session
+> ultrathink help me create my custom command in @.claude/commands/deploy_vercel.md i want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
+
+**Feature implemented:** `/deploy_vercel` custom command + live Vercel deployment
+- Prompt used: `ultrathink help me create my custom command in @.claude/commands/deploy_vervel.md i want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.`
+- Created `.claude/commands/deploy_vercel.md` — invoking `/deploy_vercel` in any future session runs the full deploy flow automatically (CLI check → auth check → vercel.json setup → `vercel --prod --yes` → returns live URL)
+- Created `vercel.json` with `outputDirectory: build` (required since this project outputs to `build/` instead of Vite's default `dist/`)
+- Installed Vercel CLI globally, authenticated, and deployed to production in one shot
+
+**Live URL:** https://claudecodetreasuregame-***.vercel.app
 
 ### custom command - Github Page deployment
 - create folder: .claude/commands
