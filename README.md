@@ -3,6 +3,7 @@
 https://github.com/uopsdod/claude_code_treasure_game/tree/initial
 
 ![Alt text](images/treasure_game_image_prompt.png)
+![alt text](images/claude_treasure_hunt_game_final.png)
 ![Alt text](images/treasure_game_add_result.png)
 ![Alt text](images/signin_signup_form.png)
 ![Alt text](images/signed_in.png)
