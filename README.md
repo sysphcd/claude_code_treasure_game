@@ -111,7 +111,12 @@ revert back to previous git commit
 
 **Live URL:** https://claudecodetreasuregame-***.vercel.app
 
-### custom command - Github Page deployment
-- create folder: .claude/commands
-- create file: deploy_github_page.md 
-- after creation, re-open a new claude code session
+### custom command - GitHub Pages deployment
+> ultrathink help me create my custom command in @.claude/commands/deploy_github_page.md i want to deploy my local project to GitHub Pages with automatic repository and authentication handling. Once done, give me the url to see my project on the internet.
+
+**Feature implemented:** `/deploy_github_page` custom command + live GitHub Pages deployment
+- Created `.claude/commands/deploy_github_page.md` — invoking `/deploy_github_page` in any future session runs the full deploy flow automatically (gh CLI check → auth check → repo detection → gh-pages install → build with correct base path → push to gh-pages branch → enable Pages → returns live URL)
+- Added `build:ghpages` script that uses `vite build --base=/claude_code_treasure_game/` so the regular `npm run build` (used by Vercel) is unaffected
+- `predeploy` + `deploy` scripts in package.json wire up `gh-pages -d build` automatically
+
+**Live URL:** https://sysphcd.github.io/claude_code_treasure_game/
