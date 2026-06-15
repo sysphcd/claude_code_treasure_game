@@ -99,7 +99,7 @@ revert back to previous git commit
 
 > Ctrl + T: See the To-Do List 
 
-### custom command - Vercel deployment
+### custom command - Vercel /yment
 > ultrathink help me create my custom command in @.claude/commands/deploy_vercel.md i want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
 
 **Feature implemented:** `/deploy_vercel` custom command + live Vercel deployment

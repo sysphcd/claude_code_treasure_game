@@ -109,24 +109,24 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 flex flex-col items-center justify-center p-8">
-      <div className="w-full flex justify-end mb-4 max-w-3xl">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 relative flex flex-col items-center justify-center p-8">
+      <div className="absolute top-4 right-4 flex items-center gap-3">
         {currentUser ? (
-          <div className="flex items-center gap-3">
+          <>
             <span className="text-amber-800 text-sm">
               Playing as: <strong>{currentUser.username}</strong>
             </span>
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
+            <Button size="sm" onClick={handleSignOut} className="!bg-orange-500 hover:!bg-orange-600 !text-white">
               Sign Out
             </Button>
-          </div>
+          </>
         ) : (
-          <div className="flex items-center gap-3">
+          <>
             <span className="text-amber-600 text-sm">Playing as Guest</span>
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
-              Sign In
+            <Button size="sm" onClick={handleSignOut} className="!bg-orange-500 hover:!bg-orange-600 !text-white">
+              Sign In / Sign Up
             </Button>
-          </div>
+          </>
         )}
       </div>
 
@@ -262,7 +262,7 @@ export default function App() {
 
           <Button
             onClick={initializeGame}
-            className="text-lg px-8 py-4 bg-amber-600 hover:bg-amber-700 text-white"
+            className="text-lg px-8 py-4 !bg-orange-500 hover:!bg-orange-600 !text-white"
           >
             Play Again
           </Button>

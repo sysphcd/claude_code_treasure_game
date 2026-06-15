@@ -68,7 +68,7 @@ function SignInForm({ onAuth }: { onAuth: (user: User) => void }) {
         />
         {errors.password && <p className="text-xs text-red-600">{errors.password.message}</p>}
       </div>
-      <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700" disabled={loading}>
+      <Button type="submit" className="w-full !bg-orange-500 hover:!bg-orange-600 !text-white" disabled={loading}>
         {loading ? <Loader2 className="animate-spin size-4" /> : 'Sign In'}
       </Button>
     </form>
@@ -123,7 +123,7 @@ function SignUpForm({ onAuth }: { onAuth: (user: User) => void }) {
         />
         {errors.password && <p className="text-xs text-red-600">{errors.password.message}</p>}
       </div>
-      <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700" disabled={loading}>
+      <Button type="submit" className="w-full !bg-orange-500 hover:!bg-orange-600 !text-white" disabled={loading}>
         {loading ? <Loader2 className="animate-spin size-4" /> : 'Sign Up'}
       </Button>
     </form>
@@ -177,7 +177,7 @@ export default function AuthScreen({ onAuth, onGuest }: AuthScreenProps) {
 
       <Button
         variant="outline"
-        className="w-full max-w-sm border-amber-400 text-amber-800 hover:bg-amber-100"
+        className="w-full max-w-sm border-orange-400 text-orange-700 hover:bg-orange-50"
         onClick={onGuest}
       >
         Play as Guest
